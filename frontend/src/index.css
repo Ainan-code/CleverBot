@@ -8,6 +8,11 @@ html, body{
   font-family: 'Raleway', sans-serif;
 };
 
+.image-inverted {
+  filter: invert(100%);
+  
+}
+
 
 
 
