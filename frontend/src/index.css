@@ -33,6 +33,9 @@ html, body{
 
 }
 
+.MuiOutlinedInput-input-root.Mui-focused, .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
 
 
 

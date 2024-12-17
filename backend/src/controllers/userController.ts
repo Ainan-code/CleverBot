@@ -69,12 +69,34 @@ export const Login = async (req:Request, res: Response, next: NextFunction) => {
             expires.setDate(expires.getDate() + 7);
             res.cookie("auth-token", token, { path: "/", domain: "localhost", httpOnly: true,  expires, signed:true});
 
-            return res.status(200).json({message: "Login successful", id: user._id});
+            return res.status(200).json({message: "Login successful", name: user.name, email: user.email});
     } catch (error) {
       console.log(error);
       return res.status(500).json({message: "something went wrong", error: error.message});
 
     }
 };
+
+export const VerifyUser = async (req:Request, res: Response, next: NextFunction) => {
+ try {
+   const user = await User.findById(res.locals.jwtData.id);
+
+   if (!user) {
+    return res.status(404).json({message: "User not found"});
+   }
+
+    if(user._id.toString() !== res.locals.jwtData.id) {
+      return res.status(401).json({message: "Unauthorized"});
+   }
+
+   return res.status(200).json({message: "User verified", name: user.name, email: user.email});
+
+  
+ } catch (error) {
+  console.log(error);
+  return res.status(500).json({message: "something went wrong", error: error.message});
+ }
+
+}
 
 
