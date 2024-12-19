@@ -21,9 +21,16 @@ export const validate = (validations: ValidationChain[]) => {
 export const loginValidations = [
     body("email").trim().isEmail().withMessage("Email is required"),
     body("password").trim().isLength({min: 6}).withMessage("Password must be at least 6 characters long")
-]
+];
  export const SignupValidations  = [
     body("name").notEmpty().withMessage("Name is required"),
     ...loginValidations,
    
- ]
+ ];
+
+
+ export const chatCompletionValidation  = [
+    body("message").notEmpty().withMessage("message is required")
+   
+   
+ ];
