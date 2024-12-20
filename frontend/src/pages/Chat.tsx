@@ -4,6 +4,7 @@ import { red } from "@mui/material/colors";
 import ChatItem from "../components/chats/ChatItem";
 import { IoMdSend } from "react-icons/io";
 import { useRef, useState } from "react";
+import { sendChatRequest } from "../helpers/api-requests";
 
 type Message = {
   role: "user" | "assistant";
@@ -26,6 +27,10 @@ type Message = {
       const newMessage: Message = {role: "user" ,  content: content  as string };
 
       setChatMessages((prev) => [...prev, newMessage]);
+
+      const chatData = await sendChatRequest(content as string);
+
+      setChatMessages([...chatData.chats]);
     }
 
   

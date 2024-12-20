@@ -30,3 +30,17 @@ import axios from "axios";
 
       return data;
   };
+
+  export const sendChatRequest = async (message : string) => {
+        
+
+    const res = await axios.post("/chat/new",  {message});
+      if(res.status !== 200) {
+        throw new Error("chat request failed");
+
+      }
+      const data =  await res.data;
+
+
+      return data;
+  };

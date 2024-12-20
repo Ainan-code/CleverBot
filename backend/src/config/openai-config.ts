@@ -1,12 +1,16 @@
-import { Configuration } from "openai";
-
-export const configureOpenAI  = ()  => {
-    const config = new Configuration({
-        apiKey: process.env.OPENAI_KEY,
-        organization: process.env.ORGANISATION_ID,
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 
-    })
 
-    return config;
-};
+export const GeminiResponse = async (prompt: string) => {
+
+const genAI = new GoogleGenerativeAI(process.env.GoogleAi_API_KEY as string);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+
+
+const result = await model.generateContent(prompt);
+
+return result.response.text();
+}
+

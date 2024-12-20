@@ -20,13 +20,13 @@ import jwt from "jsonwebtoken";
     return res.status(401).json({message: "No token found"});
   }
      return new Promise<void>((resolve, reject) => {
-         return jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded) => {
+         return jwt.verify(token, process.env.JWT_SECRET , (err, success) => {
            if(err) {
              return res.status(401).json({message: "Unauthorized"});
            }
            else {
             resolve();
-            res.locals.jwtData = decoded;
+            res.locals.jwtData = success;
             return next();
            }
 
