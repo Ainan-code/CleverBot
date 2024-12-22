@@ -23,8 +23,9 @@ export const loginValidations = [
     body("password").trim().isLength({min: 6}).withMessage("Password must be at least 6 characters long")
 ];
  export const SignupValidations  = [
-    body("name").notEmpty().withMessage("Name is required"),
-    ...loginValidations,
+    body("fullName").notEmpty().withMessage("Name is required"),
+    body("email").trim().isEmail().withMessage("Email is required"),
+    body("password").trim().isLength({min: 6}).withMessage("Password must be at least 6 characters long")
    
  ];
 

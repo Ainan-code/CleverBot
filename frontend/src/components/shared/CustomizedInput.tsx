@@ -6,7 +6,10 @@ import { TextField } from "@mui/material";
 
     name: string,
     type: string,
-    label: string
+    label: string,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    value: string
+    
   };
 
   
@@ -18,6 +21,8 @@ import { TextField } from "@mui/material";
      name={props.name}
      type={props.type}
      label={props.label} 
+     onChange={props.onChange}
+     value={props.value}
      InputProps={{
       style: {
         width: "400px",

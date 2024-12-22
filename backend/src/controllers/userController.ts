@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
-import {hash, compare} from "bcrypt";
+import {hash, compare, genSalt} from "bcrypt";
 import { generateToken } from "../utils/generateToken.js";
 
   
@@ -23,11 +23,13 @@ import { generateToken } from "../utils/generateToken.js";
   export const Signup = async (req:Request, res: Response, next: NextFunction) => {
     try {
 
-      const {name, email, password} = req.body;
+      const {fullName, email, password} = req.body;
 
-      const hashedPassword = await hash(password,10);
+      const salt = await genSalt(10);
 
-      const user = new User({name, email, password: hashedPassword});
+      const hashedPassword = await hash(password,salt);
+
+      const user = new User({fullName, email, password: hashedPassword});
       
       await user.save();
 
@@ -60,16 +62,14 @@ export const Login = async (req:Request, res: Response, next: NextFunction) => {
             // genrate token
             const token = generateToken(user._id.toString());
 
-           // set and clear cookie  
-
-           res.clearCookie("auth-token", {path: "/", domain: "localhost", httpOnly: true, signed: true});
+          
 
 
             const expires = new Date();
             expires.setDate(expires.getDate() + 7);
             res.cookie("auth-token", token, { path: "/", domain: "localhost", httpOnly: true,  expires, signed:true});
 
-            return res.status(200).json({message: "Login successful", name: user.name, email: user.email});
+            return res.status(200).json({message: "Login successful", fullName: user.fullName, email: user.email});
     } catch (error) {
       console.log(error);
       return res.status(500).json({message: "something went wrong", error: error.message});
@@ -89,7 +89,7 @@ export const VerifyUser = async (req:Request, res: Response, next: NextFunction)
       return res.status(401).json({message: "Unauthorized"});
    }
 
-   return res.status(200).json({message: "User verified", name: user.name, email: user.email});
+   return res.status(200).json({message: "User verified", fullName: user.fullName, email: user.email});
 
   
  } catch (error) {
@@ -97,6 +97,23 @@ export const VerifyUser = async (req:Request, res: Response, next: NextFunction)
   return res.status(500).json({message: "something went wrong", error: error.message});
  }
 
-}
+};
+
+
+export const Logout = async (req:Request, res: Response, next: NextFunction) => {
+     const user = await User.findById(res.locals.jwtData.id);
+     if (!user) {
+      return res.status(404).json({message: "User not found"});
+     }
+  
+      if(user._id.toString() !== res.locals.jwtData.id) {
+        return res.status(401).json({message: "Unauthorized"});
+     };
+     // set and clear cookie  
+
+     res.clearCookie("auth-token", {path: "/", domain: "localhost", httpOnly: true, signed: true});
+     return res.status(200).json({message: "Logout successful"});
+
+};
 
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { checkAuthStatus, loginUser } from "../helpers/api-requests";
+import { checkAuthStatus, loginUser, LogoutUser, signupUser } from "../helpers/api-requests";
 
 type User = {
     name: string;
@@ -11,7 +11,7 @@ type UserAuth = {
     user: User | null;
     
     login: (email: string, password: string) => Promise<void>;
-    signup: (name: string, email: string, password: string) => Promise<void>;
+    signup: (formData: any) => Promise<void>;
     logout: () => Promise<void>;
 
 }
@@ -49,12 +49,22 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
     };
 
-    const signup =  async (name: string,email: string, password: string) => {
-        
+    const signup =  async (formData: any) => {
+        const data = await signupUser(formData);
+
+        if (data) {
+            setUser({email: data.email, name: data.name});
+            setIsLoggedIn(true);
+        }
     };
 
     const logout =  async () => {
-
+       const data = await LogoutUser();
+       if (data) {
+        setUser(null);
+        setIsLoggedIn(false);
+        window.location.reload();
+       }
     };
 
     const value = {

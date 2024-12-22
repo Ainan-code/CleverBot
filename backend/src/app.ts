@@ -18,7 +18,7 @@ app.use(morgan("dev"));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use("/api/v1", appRouter);
-console.log(process.env.OPENAI_API_KEY)
+
 
 
 export default app;
