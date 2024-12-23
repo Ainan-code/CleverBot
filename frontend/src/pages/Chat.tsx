@@ -63,13 +63,13 @@ type Message = {
 
      <Box sx={{display:{ md: "flex", sm: "none", xs: "none"}, flex: 0.2, flexDirection: "column" }}    >
 
-      <Box sx={{display: "flex", width: "100%", height: "60vh", bgcolor: "#52414C", borderRadius: 5, flexDirection: "column"
+      <Box sx={{display: "flex", width: "100%", height: "60vh", bgcolor: "#6C9EAD", borderRadius: 5, flexDirection: "column"
        , mx:3
       }} >
 
         <Avatar sx={{mx: "auto", my: 2, bgcolor: "white", color: "black", fontWeight: 700
 
-        }}>{auth?.user?.name[0]} {auth?.user?.name.split(" ")[1][0]} </Avatar>
+        }}>{auth?.user?.fullName[0]} {auth?.user?.fullName.split(" ")[1][0]} </Avatar>
 
         <Typography sx={{mx: "auto"}}
         >
@@ -98,17 +98,17 @@ type Message = {
             mx: "auto",
             fontWeight: "600"}}>GEMINI 1.5  </Typography>
 
-    <Box sx={{width: "100%", height: "60vh", borderRadius: 3, mx: "auto", display: "flex", 
-     flexDirection: "column", overflow: "scroll",overflowY: "auto", scrollBehavior: "smooth"
+    <Box sx={{ maxHeight: "60vh", borderRadius: 3, mx: "auto", display: "flex", 
+     flexDirection: "column", overflow: "scroll",overflowY: "auto",overflowX: "hidden" ,scrollBehavior: "smooth"
     }}
      >
-      {chatMessages.map((chat) =>  <ChatItem  content={chat.content} role={chat.role} />  )}
+      {chatMessages.map((chat,index) =>  <ChatItem  content={chat.content} role={chat.role} key={index}/>  )}
      </Box>
-     <div style={{width: "100%",  borderRadius: 8, backgroundColor: "#596157", display: "flex", margin: "auto"}}>
+     <div style={{width: "100%",  borderRadius: 8, backgroundColor: "#B0B0B0", display: "flex", margin: "auto"}}>
       {" "} 
      <input ref={inputRef}
-     type="text" style={{width: "100%", backgroundColor: "transparent", padding: "30px", border: "none", 
-     outline: "none", color: "white", fontSize: "20px"
+     type="text" style={{width: "100%", backgroundColor: "transparent", padding: "15px", border: "none", 
+     outline: "none", color: "#333333", fontSize: "20px"
      }} />
       <IconButton onClick={handleSubmit}  sx={{mx: 1, color: "white", }}> <IoMdSend /> </IconButton>
      </div>

@@ -17,13 +17,13 @@ import { useAuth } from '../context/AuthContext';
     {auth?.isLoggedIn ? (
             <>
               <NavigationLink
-                bg="#00fffc"
+                bg="#4CAF50"
                 to="/chat"
                 text="Go To Chat"
-                textColor="black"
+                textColor="white"
               />
               <NavigationLink
-                bg="#51538f"
+                bg="#4CAF50"
                 textColor="white"
                 to="/"
                 text="logout"
@@ -33,13 +33,13 @@ import { useAuth } from '../context/AuthContext';
           ) : (
             <>
               <NavigationLink
-                bg="#00fffc"
+                bg="#4CAF50"
                 to="/login"
                 text="Login"
-                textColor="black"
+                textColor="white"
               />
               <NavigationLink
-                bg="#51538f"
+                bg="#4CAF50"
                 textColor="white"
                 to="/signup"
                 text="Signup"

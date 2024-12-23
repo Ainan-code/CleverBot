@@ -3,12 +3,15 @@ import { IoIosLogIn } from 'react-icons/io';
 import CustomizedInput from '../components/shared/CustomizedInput';
 import { useAuth } from '../context/AuthContext';
 import {toast} from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
  
  const Login = () => {
 
   const auth = useAuth();
+
+  const navigate = useNavigate();
   
 
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
@@ -21,6 +24,7 @@ import {toast} from 'react-hot-toast';
          toast.loading("Logging in...", {id: "login"});
           await auth?.login(email as string, password as string);
           toast.success("Login successful", {id: "login"});
+          navigate("/chat");
       } catch (error) {
         console.log(error);
         toast.error("Login failed", {id: "login"});
@@ -45,9 +49,9 @@ import {toast} from 'react-hot-toast';
            <Box  sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}
            >
             <Typography variant='h4' textAlign={'center'} padding={"3"} fontWeight={600}>Login</Typography>
-
+            
             <CustomizedInput name="email" type="email" label="Email"/>
-            <CustomizedInput name="password" type="password" label="Password"/>
+            <CustomizedInput name="password" type="password" label="Password" />
             <Button variant="contained" color="success" type="submit" sx={{px:2, py: 2, mt:2 , 
               width: "400px", borderRadius: 2, bgcolor: "#4BA3FB", ":hover": { bgcolor: "white", color: "black"}
               }}  endIcon={<IoIosLogIn />}

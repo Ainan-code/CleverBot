@@ -9,7 +9,7 @@ userRoutes.get("/", getAllUsers);
 
 userRoutes.get("/auth-status", verifyToken ,VerifyUser);
 
-userRoutes.post("/signup", Signup);
+userRoutes.post("/signup", validate(SignupValidations), Signup);
 
 userRoutes.post("/login",validate(loginValidations), Login);
 

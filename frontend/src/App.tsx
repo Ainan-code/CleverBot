@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Chat from './pages/Chat';
 import NotFound from './pages/NotFound';
 import { useAuth } from './context/AuthContext';
+import Footer from './components/footer';
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
         <Route path="/chat" element= { auth?.user ?  <Chat/> : <Login/>} />
         <Route path="*" element={<NotFound/>} />
       </Routes>
-
+      <Footer/>
       </main>
         
     </>

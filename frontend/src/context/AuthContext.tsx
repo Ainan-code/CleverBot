@@ -1,8 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { checkAuthStatus, loginUser, LogoutUser, signupUser } from "../helpers/api-requests";
 
+
 type User = {
-    name: string;
+    fullName: string;
     email: string;
 
 }
@@ -11,7 +12,7 @@ type UserAuth = {
     user: User | null;
     
     login: (email: string, password: string) => Promise<void>;
-    signup: (formData: any) => Promise<void>;
+    signup: (fullfullName: string, email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
 
 }
@@ -21,6 +22,8 @@ const AuthContext = createContext<UserAuth | null>(null);
 
 export const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
+  
+
     const [user, setUser] = useState<User | null>(null);
    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     
@@ -29,7 +32,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
         async function fetchUser() {
           const data = await checkAuthStatus();
           if (data) {
-            setUser({email: data.email, name: data.name});
+            setUser({email: data.email, fullName: data.fullName});
             setIsLoggedIn(true);
           }
 
@@ -42,20 +45,23 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
         const data = await loginUser(email, password);
          
         if (data) {
-            setUser({email: data.email, name: data.name});
+            setUser({email: data.email, fullName: data.fullName});
             setIsLoggedIn(true);
+           
         }
-
+     
 
     };
 
-    const signup =  async (formData: any) => {
-        const data = await signupUser(formData);
+    const signup =  async (fullName: string, email: string, password: string) => {
+        const data = await signupUser(fullName, email, password);
 
         if (data) {
-            setUser({email: data.email, name: data.name});
+            setUser({email: data.email, fullName: data.fullName});
             setIsLoggedIn(true);
+           
         }
+      
     };
 
     const logout =  async () => {

@@ -16,11 +16,11 @@ import axios from "axios";
       return data;
   };
 
-  export const signupUser = async (formData: any) => {
+  export const signupUser = async (fullName: string, email: string, password: string) => {
         
 
     const res = await axios.post("/user/signup", {
-      formData
+      fullName, email, password
       });
       if(res.status !== 200) {
         throw new Error("signup Failed");

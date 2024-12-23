@@ -10,7 +10,7 @@
         
         </Link>
         <Typography sx={{display: {md: "block", xs: "none", sm: "none" }, mr: "auto", fontWeight: 800, textShadow: " 2pxp 2px 20px #000"}}>
-            <span style={{fontSize: "20px", color: "#8FB98D"}}> ConsciousLeaf</span>
+            <span style={{fontSize: "20px", color: "#4CAF50"}}> EcoLeaf</span>
         </Typography>
 
        </div>
