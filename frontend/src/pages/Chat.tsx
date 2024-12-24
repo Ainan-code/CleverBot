@@ -58,12 +58,12 @@ type Message = {
 
   
     return (
-      <Box sx={{display: "flex", flex: 1, width: "100%", height: "100%", mt: 3, gap: 3}}
+      <Box sx={{display: "flex", flex: 1, maxWidth: "100%", maxHeight: "100%", mt: 3, gap: 3}}
       >
 
      <Box sx={{display:{ md: "flex", sm: "none", xs: "none"}, flex: 0.2, flexDirection: "column" }}    >
 
-      <Box sx={{display: "flex", width: "100%", height: "60vh", bgcolor: "#6C9EAD", borderRadius: 5, flexDirection: "column"
+      <Box sx={{display: "flex", width: "100%", minHeight: "60vh", bgcolor: "#6C9EAD", borderRadius: 5, flexDirection: "column"
        , mx:3
       }} >
 
@@ -90,7 +90,7 @@ type Message = {
         </Button>
       </Box>
    </Box>
-    <Box sx={{display: "flex", flex: {md: 0.8, xs: 1, sm: 1}, flexDirection: "column", px: 3  }}>
+    <Box sx={{display: "flex", flex: {md: 0.5, xs: 1, sm: 1}, flexDirection: "column", px: 3  }}>
 
     <Typography sx={{fontSize: "40px",
             color: "white",
@@ -98,7 +98,7 @@ type Message = {
             mx: "auto",
             fontWeight: "600"}}>GEMINI 1.5  </Typography>
 
-    <Box sx={{ maxHeight: "60vh", borderRadius: 3, mx: "auto", display: "flex", 
+    <Box sx={{ maxHeight: "60vh", maxWidth: "80vw", borderRadius: 3, mx: "auto", display: "flex", 
      flexDirection: "column", overflow: "scroll",overflowY: "auto",overflowX: "hidden" ,scrollBehavior: "smooth"
     }}
      >
